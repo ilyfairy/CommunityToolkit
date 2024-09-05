@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace CommunityToolkit.Mvvm;
 
+#if !NET45
 /// <summary>
 /// A container for all shared <see cref="AppContext"/> configuration switches for the MVVM Toolkit.
 /// </summary>
@@ -20,6 +21,7 @@ namespace CommunityToolkit.Mvvm;
 /// For more info, see <see href="https://github.com/dotnet/runtime/blob/main/docs/workflow/trimming/feature-switches.md#adding-new-feature-switch"/>.
 /// </para>
 /// </remarks>
+#endif
 internal static class FeatureSwitches
 {
     /// <summary>
@@ -69,14 +71,15 @@ internal static class FeatureSwitches
 
         // Get the configuration switch value, or its default.
         // All feature switches have a default set in the .targets file.
-        if (!AppContext.TryGetSwitch(propertyName, out bool isEnabled))
-        {
-            isEnabled = defaultValue;
-        }
+        //if (!AppContext.TryGetSwitch(propertyName, out bool isEnabled))
+        //{
+        //    isEnabled = defaultValue;
+        //}
 
-        // Update the cached result
-        cachedResult = isEnabled ? 1 : -1;
+        //// Update the cached result
+        //cachedResult = isEnabled ? 1 : -1;
 
-        return isEnabled;
+        //return isEnabled;
+        return true;
     }
 }

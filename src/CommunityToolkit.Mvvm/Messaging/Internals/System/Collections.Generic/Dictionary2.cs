@@ -75,7 +75,11 @@ internal class Dictionary2<TKey, TValue> : IDictionary2<TKey, TValue>
         {
             ref TValue value = ref FindValue(key);
 
+#if NET45
+            if (!UnsafeCore.IsNullRef(ref value))
+#else
             if (!Unsafe.IsNullRef(ref value))
+#endif
             {
                 return value;
             }
@@ -93,7 +97,7 @@ internal class Dictionary2<TKey, TValue> : IDictionary2<TKey, TValue>
 
         if (count > 0)
         {
-#if NETSTANDARD2_0_OR_GREATER
+#if NETSTANDARD2_0_OR_GREATER || NET45
             Array.Clear(this.buckets!, 0, this.buckets!.Length);
 #else
             Array.Clear(this.buckets!);
@@ -114,7 +118,11 @@ internal class Dictionary2<TKey, TValue> : IDictionary2<TKey, TValue>
     /// <returns>Whether or not the key was present in the dictionary.</returns>
     public bool ContainsKey(TKey key)
     {
+#if NET45
+        return !UnsafeCore.IsNullRef(ref FindValue(key));
+#else
         return !Unsafe.IsNullRef(ref FindValue(key));
+#endif
     }
 
     /// <summary>
@@ -127,7 +135,11 @@ internal class Dictionary2<TKey, TValue> : IDictionary2<TKey, TValue>
     {
         ref TValue valRef = ref FindValue(key);
 
+#if NET45
+        if (!UnsafeCore.IsNullRef(ref valRef))
+#else
         if (!Unsafe.IsNullRef(ref valRef))
+#endif
         {
             value = valRef;
             return true;

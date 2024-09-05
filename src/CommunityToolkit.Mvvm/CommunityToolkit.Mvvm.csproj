@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net8.0;net8.0-windows10.0.17763.0</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0;netstandard2.1;net6.0;net8.0;net8.0-windows10.0.17763.0</TargetFrameworks>
   </PropertyGroup>
 
   <!--
@@ -39,6 +39,14 @@
     </Description>
     <PackageTags>MVVM;Toolkit;MVVMToolkit;INotifyPropertyChanged;Observable;IOC;DI;Dependency Injection;Object Messaging;Extensions;Helpers</PackageTags>
   </PropertyGroup>
+  
+  <!-- .NET Framework 4.5 -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="System.Memory" Version="4.5.5" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+  </ItemGroup>
 
   <!-- .NET Standard 2.0 doesn't have the Span<T> and IAsyncEnumerable<T> types -->
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

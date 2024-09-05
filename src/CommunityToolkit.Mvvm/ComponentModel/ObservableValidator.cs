@@ -523,7 +523,11 @@ public abstract class ObservableValidator : ObservableObject, INotifyDataErrorIn
         // type is marked as a non-nullable reference type, here we're returning an
         // empty array to respect the contract. This also matches the behavior of
         // this method whenever errors for a valid properties are retrieved.
+#if NET45
+        return new ValidationResult[0];
+#else   
         return Array.Empty<ValidationResult>();
+#endif
     }
 
     /// <inheritdoc/>
